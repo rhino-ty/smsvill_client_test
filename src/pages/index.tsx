@@ -1,7 +1,6 @@
 import FileInputReadExcel from "@/components/FileInputReadExcel";
 import FileInputXLSX from "@/components/FileInputXLSX";
 import Head from "next/head";
-import "normalize.css/normalize.css";
 
 export default function Home() {
   return (
