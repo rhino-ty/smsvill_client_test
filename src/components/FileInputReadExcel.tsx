@@ -6,14 +6,14 @@ interface FileInputReadExcelProps {
 }
 
 const FileInputReadExcel: React.FC<FileInputReadExcelProps> = ({ onChange }) => {
-  const [file, setFile] = useState<File>();
+  const [excelData, setData] = useState<File>();
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
       try {
         const data = await readXlsxFile(selectedFile);
-        setFile(selectedFile);
+        setData(selectedFile);
         onChange(data);
       } catch (error) {
         console.error(error);
