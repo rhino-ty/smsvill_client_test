@@ -44,7 +44,7 @@ const FileInputReadExcel: React.FC = () => {
       <div>
         <input type="file" accept=".xlsx" onChange={handleFileChange} />
       </div>
-      <ul>
+      {/* <ul>
         {!!formattedData
           ? formattedData.map((data) => (
               <li key={data.핸드폰번호}>
@@ -52,7 +52,27 @@ const FileInputReadExcel: React.FC = () => {
               </li>
             ))
           : null}
-      </ul>
+      </ul> */}
+      {!!formattedData ? (
+        <table>
+          <thead>
+            <tr>
+              <th>핸드폰번호</th>
+              <th>이름</th>
+              <th>그룹</th>
+            </tr>
+          </thead>
+          <tbody>
+            {formattedData.map((data) => (
+              <tr key={data.핸드폰번호}>
+                <td>{data.핸드폰번호}</td>
+                <td>{data.이름}</td>
+                <td>{data.그룹}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : null}
     </>
   );
 };
