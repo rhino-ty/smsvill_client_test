@@ -41,8 +41,14 @@ const FileInputReadExcel: React.FC = () => {
 
   return (
     <>
-      <div>
-        <input type="file" accept=".xlsx" onChange={handleFileChange} />
+      <div className="mt-4 flex flex-col items-center">
+        <label className="text-gray-700 font-bold mb-2">엑셀 파일을 선택하세요.</label>
+        <input
+          type="file"
+          accept=".xlsx"
+          onChange={handleFileChange}
+          className="py-2 px-3 border border-gray-400 rounded-md"
+        />
       </div>
       {/* <ul>
         {!!formattedData
@@ -54,20 +60,20 @@ const FileInputReadExcel: React.FC = () => {
           : null}
       </ul> */}
       {!!formattedData ? (
-        <table>
+        <table className="table-auto mt-8 w-full">
           <thead>
             <tr>
-              <th>핸드폰번호</th>
-              <th>이름</th>
-              <th>그룹</th>
+              <th className="px-4 py-2 text-left">핸드폰번호</th>
+              <th className="px-4 py-2 text-left">이름</th>
+              <th className="px-4 py-2 text-left">그룹</th>
             </tr>
           </thead>
           <tbody>
             {formattedData.map((data) => (
               <tr key={data.핸드폰번호}>
-                <td>{data.핸드폰번호}</td>
-                <td>{data.이름}</td>
-                <td>{data.그룹}</td>
+                <td className="border px-4 py-2">{data.핸드폰번호}</td>
+                <td className="border px-4 py-2">{data.이름}</td>
+                <td className="border px-4 py-2">{data.그룹}</td>
               </tr>
             ))}
           </tbody>
