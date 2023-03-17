@@ -1,30 +1,25 @@
-import * as XLSX from "xlsx";
+import { read, utils, WorkSheet } from "xlsx";
+import { useState } from "react";
 
 interface ExcelRow {
   [key: string]: string;
 }
 
 export default function FileInputXLSX() {
-  let arrayData: ExcelRow[] = [];
+  const [arrayData, setArrayData] = useState<ExcelRow[]>([]);
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
 
     if (!file) {
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const data = event.target?.result;
-      const workbook = XLSX.read(data, { type: "binary" });
-      const sheetName = workbook.SheetNames[0];
-      const sheet = workbook.Sheets[sheetName];
-      arrayData = XLSX.utils.sheet_to_json(sheet);
-
-      // Use the arrayData here
-    };
-    reader.readAsBinaryString(file);
+    const workbook = await read(file, { type: "array" });
+    const sheetName = workbook.SheetNames[0];
+    const sheet: WorkSheet = workbook.Sheets[sheetName];
+    const newData = utils.sheet_to_json<ExcelRow>(sheet);
+    setArrayData(newData);
   };
 
   return (
