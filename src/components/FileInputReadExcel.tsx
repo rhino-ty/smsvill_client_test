@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import readXlsxFile from "read-excel-file";
 
-interface FileInputReadExcelProps {
-  onChange: (data: any[][]) => void;
-}
-
-const FileInputReadExcel: React.FC<FileInputReadExcelProps> = ({ onChange }) => {
+const FileInputReadExcel: React.FC = () => {
   const [excelData, setData] = useState<File>();
 
   const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,11 +10,24 @@ const FileInputReadExcel: React.FC<FileInputReadExcelProps> = ({ onChange }) => 
       try {
         const data = await readXlsxFile(selectedFile);
         setData(selectedFile);
-        onChange(data);
+        handleExcelDataChange(data);
       } catch (error) {
         console.error(error);
       }
     }
+  };
+
+  const handleExcelDataChange = (data: any[][]) => {
+    const headers = data[0]; // 첫번째 행을 헤더로 사용
+    const rows = data.slice(1); // 첫번째 행을 제외한 나머지 행을 데이터로 사용
+
+    const formattedData = rows.map((row) =>
+      headers.reduce((acc, header, index) => {
+        acc[header] = row[index];
+        return acc;
+      }, {})
+    );
+    console.log(formattedData);
   };
 
   return (

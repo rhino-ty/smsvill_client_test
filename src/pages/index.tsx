@@ -4,19 +4,6 @@ import Head from "next/head";
 import "normalize.css/normalize.css";
 
 export default function Home() {
-  const handleExcelDataChange = (data: any[][]) => {
-    const headers = data[0]; // 첫번째 행을 헤더로 사용
-    const rows = data.slice(1); // 첫번째 행을 제외한 나머지 행을 데이터로 사용
-
-    const formattedData = rows.map((row) =>
-      headers.reduce((acc, header, index) => {
-        acc[header] = row[index];
-        return acc;
-      }, {})
-    );
-    console.log(formattedData);
-  };
-
   return (
     <>
       <Head>
@@ -26,7 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* <FileInputXLSX /> */}
-      <FileInputReadExcel onChange={handleExcelDataChange} />
+      <FileInputReadExcel />
     </>
   );
 }
